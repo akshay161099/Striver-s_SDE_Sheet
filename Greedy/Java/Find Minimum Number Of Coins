@@ -1,0 +1,21 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution
+{
+public static int findMinimumCoins(int amount)
+    {
+        int[] arr = {1,2,5,10,20,50,100,500,1000};
+        int res = 0;
+        for(int i = arr.length-1;i>=0;i--){
+            if(amount >= arr[i]){
+                int d = amount/arr[i];
+                amount = amount%arr[i];
+                res+=d;
+            }
+            if(amount == 0){
+                return res;
+            }
+        }
+        return res;
+    }
+}
