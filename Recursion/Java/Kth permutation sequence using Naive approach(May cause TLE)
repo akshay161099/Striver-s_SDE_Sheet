@@ -1,0 +1,28 @@
+class Solution {
+    public String getPermutation(int n, int k) {
+        List<String> list = new ArrayList<>();
+        String s = "";
+        for(int i = 1;i<=n;i++){
+            s+=i;
+        }
+        permute(0,n,s.toCharArray(), list);
+        Collections.sort(list);
+        return list.get(k-1);
+    }
+    public void permute(int index, int n, char[] arr, List<String> list){
+        if(index == n){
+            list.add(new String(arr));
+            return;
+        }
+        for(int i = index;i<n;i++){
+            swap(i,index,arr);
+            permute(index+1,n,arr,list);
+            swap(i,index,arr);
+        }   
+    }
+    public void swap(int i, int j, char[] arr){
+        char temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+}
