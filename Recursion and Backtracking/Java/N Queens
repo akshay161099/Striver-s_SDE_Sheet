@@ -1,0 +1,67 @@
+class Solution {
+    public List<List<String>> solveNQueens(int n) {
+        List<List<String>> list = new ArrayList<>();
+        char[][] arr = createBoard(n);
+        dfs(0,arr,list);
+        return list;
+    }
+    public char[][] createBoard(int n){
+        char[][] arr = new char[n][n];
+        for(int i = 0;i<n;i++){
+            for(int j = 0;j<n;j++){
+                arr[i][j] = '.';
+            }
+        }
+        return arr;
+    }
+    public List<String> createList(char[][] board){
+        List<String> list = new ArrayList<>();
+        for(int i = 0;i<board.length;i++){
+            list.add(new String(board[i]));
+        }
+        return list;
+    }
+    public void dfs(int col, char[][] board, List<List<String>> list){
+        if(col == board.length){
+            list.add(createList(board));
+            return;
+        }
+        for(int row = 0;row<board.length;row++){
+            if(validate(row,col,board)){
+                board[row][col] = 'Q';
+                dfs(col+1, board, list);
+                board[row][col] = '.';
+            }
+            
+        }
+    }
+    public boolean validate(int row, int col, char[][] board){
+        int rowTemp = row;
+        int colTemp = col;
+        while(row>=0 && col>=0){
+            if(board[row][col] == 'Q'){
+                return false;
+            }
+            row--;
+            col--;
+        }
+        row = rowTemp;
+        col = colTemp;
+        while(col>=0){
+            if(board[row][col] == 'Q'){
+                return false;
+            }
+            col--;
+        }
+        row = rowTemp;
+        col = colTemp;
+        while(row<board.length && col>=0){
+            if(board[row][col] == 'Q'){
+                return false;
+            }
+            row++;
+            col--;
+        }
+        return true;
+    }
+}
