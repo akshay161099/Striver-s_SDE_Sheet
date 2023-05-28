@@ -1,0 +1,62 @@
+import java.util.* ;
+import java.io.*; 
+/************************************************************
+
+	Following is the Binary Tree node structure:
+
+	class BinaryTreeNode<T> {
+	    T data;
+	    BinaryTreeNode<T> left;
+	    BinaryTreeNode<T> right;
+
+	    public BinaryTreeNode(T data) {
+	        this.data = data;
+	    }
+	}
+
+************************************************************/
+
+public class Solution {
+	
+    public static List<List<Integer>> getTreeTraversal(BinaryTreeNode<Integer> root) {
+		List<Integer> inorder = new ArrayList<>();
+		List<Integer> preorder = new ArrayList<>();
+		List<Integer> postorder = new ArrayList<>();
+		List<List<Integer>> finalList = new ArrayList<>();
+		BinaryTreeNode<Integer> node = root;
+        inorder(node,inorder);
+		node = root;
+		preorder(node,preorder);
+		node = root;
+		postorder(node,postorder);
+		finalList.add(inorder);
+		finalList.add(preorder);
+		finalList.add(postorder);
+		return finalList;
+		
+    }
+	public static void inorder(BinaryTreeNode<Integer> root,List<Integer> inorder){
+		if(root == null){
+			return;
+		}
+		inorder(root.left,inorder);
+		inorder.add(root.data);
+		inorder(root.right,inorder);
+	}
+	public static void preorder(BinaryTreeNode<Integer> root,List<Integer> preorder){
+		if(root == null){
+			return;
+		}
+		preorder.add(root.data);
+		preorder(root.left,preorder);
+		preorder(root.right,preorder);
+	}
+	public static void postorder(BinaryTreeNode<Integer> root,List<Integer> postorder){
+		if(root == null){
+			return;
+		}
+		postorder(root.left,postorder);
+		postorder(root.right,postorder);
+		postorder.add(root.data);
+	}
+}
