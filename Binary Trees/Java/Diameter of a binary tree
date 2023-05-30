@@ -1,0 +1,61 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    class Pair{
+        int index;
+        TreeNode node;
+        Pair(TreeNode node, int index){
+            this.node = node;
+            this.index = index;
+        }
+    }
+    public int widthOfBinaryTree(TreeNode root) {
+        if(root == null){
+            return 0;
+        }
+        TreeNode node = root;
+        Queue<Pair> q = new LinkedList<>();
+        q.add(new Pair(root,0));
+        int ind = q.peek().index;
+        int diameter = Integer.MIN_VALUE;
+        int left = 0;
+        int right = 0;
+        //int j = q.index;
+        //int currMin = 0;
+        
+        while(!q.isEmpty()){
+            int size = q.size();
+            int minNum = q.peek().index;
+            //System.out.println("minNum - "+minNum +" and size =  "+size);
+            for(int i = 0;i<size;i++){
+                
+                ind = q.peek().index;
+                //System.out.println("ind - "+ind);
+                TreeNode temp = q.poll().node;
+                
+                if(temp.left != null){
+                    q.add(new Pair(temp.left,2*ind+1));
+                }
+                if(temp.right != null){
+                     q.add(new Pair(temp.right,2*ind+2));
+                }
+   
+            }
+            diameter = Math.max(ind-minNum+1,diameter);  
+        }
+        return diameter;
+    }
+}
