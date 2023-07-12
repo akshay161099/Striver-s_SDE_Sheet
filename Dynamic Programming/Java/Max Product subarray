@@ -1,0 +1,31 @@
+class Solution {
+    public int maxProduct(int[] nums) {
+        int maxLeft = nums[0];
+        int maxRight = nums[0];
+        boolean zero = false;
+        int product = 1;
+        for(int i : nums){
+            product*=i;
+            
+            maxLeft = Math.max(product,maxLeft);
+            if(i == 0){
+                product = 1;
+                zero = true;
+            }
+        }
+        product = 1;
+        for(int i = nums.length-1;i>=0;i--){
+            product*=nums[i];
+            
+            maxRight = Math.max(maxRight,product);
+            if(nums[i] == 0){
+                zero = true;
+                product = 1;
+            }
+        }
+        if(zero){
+            return Math.max(Math.max(maxRight,maxLeft),0);
+        }
+        return Math.max(maxLeft,maxRight);
+    }
+}
